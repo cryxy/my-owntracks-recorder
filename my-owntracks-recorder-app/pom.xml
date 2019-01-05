@@ -1,0 +1,164 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.cryxy.owntracks</groupId>
+		<artifactId>my-owntracks-recorder</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>my-owntracks-recorder-app</artifactId>
+
+	<properties>
+		<version.jersey>2.27</version.jersey>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.0.2</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/libs</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>libs/</classpathPrefix>
+							<mainClass>
+								de.cryxy.owntracks.recorder.Application
+							</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<configuration>
+					<imageName>cryxy/${project.artifactId}</imageName>
+					<dockerDirectory>${project.basedir}</dockerDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>build-image</id>
+						<phase>package</phase>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<!-- Paha for MQTT -->
+		<dependency>
+			<groupId>org.eclipse.paho</groupId>
+			<artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.json/javax.json-api -->
+		<dependency>
+			<groupId>javax.json</groupId>
+			<artifactId>javax.json-api</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.glassfish/javax.json -->
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.json</artifactId>
+			<version>1.1</version>
+		</dependency>
+
+		<!-- CDI -->
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<version>2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.weld.se</groupId>
+			<artifactId>weld-se-shaded</artifactId>
+			<version>3.0.5.Final</version>
+		</dependency>
+
+		<!-- Geohashing -->
+		<dependency>
+			<groupId>ch.hsr</groupId>
+			<artifactId>geohash</artifactId>
+			<version>1.3.0</version>
+		</dependency>
+
+		<!-- Reverse Geocoding -->
+		<dependency>
+			<groupId>OfflineReverseGeocode</groupId>
+			<artifactId>OfflineReverseGeocode</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<!-- InfluxDB Connector -->
+		<dependency>
+			<groupId>org.influxdb</groupId>
+			<artifactId>influxdb-java</artifactId>
+			<version>2.14</version>
+		</dependency>
+
+		<!-- Lib for writing GPX -->
+		<dependency>
+			<groupId>io.jenetics</groupId>
+			<artifactId>jpx</artifactId>
+			<version>1.4.0</version>
+		</dependency>
+
+		<!-- Jersey for REST-API -->
+		<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-grizzly2-http</artifactId>
+			<version>${version.jersey}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.inject</groupId>
+			<artifactId>jersey-hk2</artifactId>
+			<version>${version.jersey}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.inject</groupId>
+			<artifactId>jersey-cdi2-se</artifactId>
+			<version>${version.jersey}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-moxy</artifactId>
+			<version>${version.jersey}</version>
+		</dependency>
+
+		<!-- DTOs -->
+		<dependency>
+			<groupId>de.cryxy.owntracks</groupId>
+			<artifactId>my-owntracks-recorder-commons</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+</project>
