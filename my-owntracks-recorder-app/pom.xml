@@ -135,6 +135,23 @@
 			<version>${version.jersey}</version>
 		</dependency>
 
+		<!-- Java 11 removed Java EE modules -->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-core</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+
 		<!-- DTOs -->
 		<dependency>
 			<groupId>de.cryxy.owntracks</groupId>
