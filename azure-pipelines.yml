@@ -22,3 +22,11 @@ steps:
     goals: 'package'
 - task: Docker@1
   displayName: 'Build docker image'
+- task: Docker@1
+  displayName: Login
+  inputs:
+    command: login
+- task: Docker@1
+  displayName: 'Push an image'
+  inputs:
+    command: 'push'
