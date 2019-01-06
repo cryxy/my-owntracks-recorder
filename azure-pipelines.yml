@@ -22,11 +22,17 @@ steps:
     goals: 'package'
 - task: Docker@1
   displayName: 'Build docker image'
+  inputs:
+     command: Build an image
 - task: Docker@1
   displayName: Login
   inputs:
     command: login
+    containerregistrytype: Container Registry
+    dockerRegistryEndpoint: 'DockerHub'
 - task: Docker@1
   displayName: 'Push an image'
   inputs:
-    command: 'push'
+    command: Push an image
+    containerregistrytype: Container Registry
+    dockerRegistryEndpoint: 'DockerHub'
