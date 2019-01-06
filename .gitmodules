@@ -1,0 +1,3 @@
+[submodule "OfflineReverseGeocode"]
+	path = OfflineReverseGeocode
+	url = https://github.com/cryxy/OfflineReverseGeocode

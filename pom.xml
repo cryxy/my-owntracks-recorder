@@ -15,6 +15,7 @@
 	<modules>
 		<module>my-owntracks-recorder-commons</module>
 		<module>my-owntracks-recorder-app</module>
+		<module>OfflineReverseGeocode</module>
 	</modules>
 	
 </project>
