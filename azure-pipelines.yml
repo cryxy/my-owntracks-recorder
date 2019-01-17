@@ -33,9 +33,9 @@ steps:
     containerregistrytype: Container Registry
     dockerRegistryEndpoint: 'DockerHub'
 - task: Docker@1
-  displayName: 'Push an image'
+  displayName: 'Push the image to docker hub'
   inputs:
-    command: Push the image
+    command: Push an image
     containerregistrytype: Container Registry
     dockerRegistryEndpoint: 'DockerHub'
     imageName: 'cryxy/my-owntracks-recorder:1.0.0-snapshot'
