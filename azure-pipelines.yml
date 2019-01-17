@@ -25,6 +25,7 @@ steps:
   inputs:
      command: Build an image
      imageName: 'cryxy/my-owntracks-recorder:1.0.0-snapshot'
+     includeLatestTag: true
 - task: Docker@1
   displayName: Login
   inputs:
@@ -38,3 +39,4 @@ steps:
     containerregistrytype: Container Registry
     dockerRegistryEndpoint: 'DockerHub'
     imageName: 'cryxy/my-owntracks-recorder:1.0.0-snapshot'
+    includeLatestTag: true
