@@ -24,6 +24,7 @@ steps:
   displayName: 'Build docker image'
   inputs:
      command: Build an image
+     imageName: 'cryxy/my-owntracks-recorder:1.0.0-snapshot'
 - task: Docker@1
   displayName: Login
   inputs:
@@ -36,3 +37,4 @@ steps:
     command: Push an image
     containerregistrytype: Container Registry
     dockerRegistryEndpoint: 'DockerHub'
+    imageName: 'cryxy/my-owntracks-recorder:1.0.0-snapshot'
