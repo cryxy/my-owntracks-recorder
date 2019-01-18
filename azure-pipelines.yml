@@ -20,3 +20,23 @@ steps:
     publishJUnitResults: false
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+- task: Docker@1
+  displayName: 'Build docker image'
+  inputs:
+     command: Build an image
+     imageName: 'cryxy/my-owntracks-recorder:1.0.0-snapshot'
+     includeLatestTag: true
+- task: Docker@1
+  displayName: Login to docker
+  inputs:
+    command: login
+    containerregistrytype: Container Registry
+    dockerRegistryEndpoint: 'DockerHub'
+- task: Docker@1
+  displayName: 'Push the image to docker hub'
+  inputs:
+    command: Push an image
+    containerregistrytype: Container Registry
+    dockerRegistryEndpoint: 'DockerHub'
+    imageName: 'cryxy/my-owntracks-recorder:1.0.0-snapshot'
+    includeLatestTag: true
