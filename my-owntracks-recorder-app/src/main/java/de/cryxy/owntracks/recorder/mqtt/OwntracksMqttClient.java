@@ -8,6 +8,7 @@ import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.BeforeShutdown;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
@@ -19,6 +20,7 @@ import org.jboss.weld.environment.se.events.ContainerInitialized;
 
 import de.cryxy.owntracks.commons.dtos.LocationDto;
 
+@Singleton
 public class OwntracksMqttClient {
 
 	private static Logger LOG = Logger.getLogger(OwntracksMqttClient.class.getName());
@@ -49,14 +51,17 @@ public class OwntracksMqttClient {
 
 		client.setCallback(new MqttCallbackExtended() {
 
+			@Override
 			public void connectionLost(Throwable throwable) {
 				LOG.log(Level.WARNING, "Connection lost! Try automatic reconnect ...", throwable);
 			}
 
+			@Override
 			public void deliveryComplete(IMqttDeliveryToken arg0) {
 
 			}
 
+			@Override
 			public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
 				if (LOG.isLoggable(Level.FINE))
 					LOG.log(Level.FINE, topic + "-" + new String(mqttMessage.getPayload()));
@@ -102,7 +107,7 @@ public class OwntracksMqttClient {
 
 	@PreDestroy
 	public void disconnect() {
-		System.out.println("[MQTT] Disconnecting from MQTT Server");
+		LOG.info("[MQTT] Disconnecting from MQTT Server");
 		try {
 			LOG.info("Disconnecting ...");
 			client.disconnect();
