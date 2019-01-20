@@ -93,6 +93,8 @@
 		</dependency>
 
 		<!-- Reverse Geocoding -->
+		<!-- Using submodules: https://github.blog/2016-02-01-working-with-submodules/ -->
+		<!-- Using submodules: https://stackoverflow.com/questions/1777854/how-can-i-specify-a-branch-tag-when-adding-a-git-submodule -->
 		<dependency>
 			<groupId>OfflineReverseGeocode</groupId>
 			<artifactId>OfflineReverseGeocode</artifactId>
