@@ -18,7 +18,7 @@ import de.cryxy.owntracks.recorder.api.resources.LocationDtoResource;
 
 public class Application {
 
-	private static final URI BASE_URI = URI.create("http://127.0.0.1:8080/api/");
+	private static final URI BASE_URI = URI.create("http://0.0.0.0:8080/api/");
 
 	public static void main(String[] args) throws MqttException, IOException {
 
