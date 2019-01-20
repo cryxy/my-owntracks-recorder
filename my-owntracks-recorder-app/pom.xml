@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>de.cryxy.owntracks</groupId>
 		<artifactId>my-owntracks-recorder</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>my-owntracks-recorder-app</artifactId>
 
@@ -14,6 +14,7 @@
 	</properties>
 
 	<build>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -163,7 +164,7 @@
 		<dependency>
 			<groupId>de.cryxy.owntracks</groupId>
 			<artifactId>my-owntracks-recorder-commons</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
