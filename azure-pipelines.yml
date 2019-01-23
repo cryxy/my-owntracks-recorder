@@ -40,4 +40,4 @@ steps:
     dockerRegistryEndpoint: 'DockerHub'
     imageName: 'cryxy/my-owntracks-recorder:1.0.0-snapshot'
     includeLatestTag: true
-- task: maikvandergaag-file-to-variable@2.2
+- task: File Content to Variable@2.2
