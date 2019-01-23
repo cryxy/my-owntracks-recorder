@@ -40,5 +40,9 @@ steps:
     dockerRegistryEndpoint: 'DockerHub'
     imageName: 'cryxy/my-owntracks-recorder:1.0.0-snapshot'
     includeLatestTag: true
-- task: maikvandergaag.maikvandergaag-file-to-variable@2-2-1
-  displayName: 'Read version to variable'
+- task: maikvandergaag.maikvandergaag-file-to-variable.FileContentToVariable.FileContenttoVariable@2
+  displayName: 'File content to variable variableTest'
+  inputs:
+    FilePath: 'version.txt'
+    VariableName: mavenProductVersion
+    AddNewlines: false
