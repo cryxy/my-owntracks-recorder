@@ -23,7 +23,7 @@ steps:
 - task: OneLuckiDev.json2variable.vsts-release-web-test.oneLuckiDevJson2Variable@1 
   displayName: 'JSON to Variable'
   inputs: 
-    jsonFile: '${Build.Repository.LocalPath}/my-owntracks-recorder-app/target/classes/version.json' 
+    jsonFile: '$(Build.Repository.LocalPath)/my-owntracks-recorder-app/target/classes/version.json' 
     shouldPrefixVariables: true 
     variablePrefix: json
 - task: Docker@1
