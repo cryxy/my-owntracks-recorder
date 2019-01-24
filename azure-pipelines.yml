@@ -30,7 +30,7 @@ steps:
   displayName: 'Build docker image'
   inputs:
      command: Build an image
-     imageName: 'cryxy/my-owntracks-recorder:1.0.0-snapshot'
+     imageName: 'cryxy/my-owntracks-recorder:$(json.version)'
      includeLatestTag: true
 - task: Docker@1
   displayName: Login to docker
@@ -44,5 +44,5 @@ steps:
     command: Push an image
     containerregistrytype: Container Registry
     dockerRegistryEndpoint: 'DockerHub'
-    imageName: 'cryxy/my-owntracks-recorder:1.0.0-snapshot'
+    imageName: 'cryxy/my-owntracks-recorder:$(json.version)'
     includeLatestTag: true
