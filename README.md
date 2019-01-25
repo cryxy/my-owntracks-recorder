@@ -14,7 +14,7 @@ Use [grafana-trackmap-panel](https://github.com/pR0Ps/grafana-trackmap-panel) to
 - OwnTracks app (Android / iOS)
 - MQTT broker (Mosquitto, ...)
 - InfluxDB
-- Docker or JRE (> 1.8)
+- Docker or JRE (>= 1.8)
 - Grafana (optional visualization)
 
 ## Getting started
