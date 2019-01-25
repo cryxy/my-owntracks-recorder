@@ -42,7 +42,7 @@ InfluxDB shell version: 0.13
 de.cryxy.owntracks.recorder.mqtt.server.uri = ssl://domain.de
 de.cryxy.owntracks.recorder.mqtt.server.user.name = 
 de.cryxy.owntracks.recorder.mqtt.server.user.password = 
-de.cryxy.owntracks.recorder.mqtt.server.topic = 
+de.cryxy.owntracks.recorder.mqtt.server.topic = owntracks/#
 
 # Geohashing 
 # https://gis.stackexchange.com/questions/115280/what-is-the-precision-of-a-geohash
@@ -54,10 +54,10 @@ de.cryxy.owntracks.recorder.processing.geonames.zips=config/DE.zip,config/RE.zip
 de.cryxy.owntracks.recorder.processing.geonames.onlyMajorCities=true
 
 # InfluxDB
-de.cryxy.owntracks.recorder.influxdb.url = 
-de.cryxy.owntracks.recorder.influxdb.dbName = 
-de.cryxy.owntracks.recorder.influxdb.user.name = 
-de.cryxy.owntracks.recorder.influxdb.user.password = 
+de.cryxy.owntracks.recorder.influxdb.url = http://influxdb.my-domain.com:8086
+de.cryxy.owntracks.recorder.influxdb.dbName = owntracks_db
+de.cryxy.owntracks.recorder.influxdb.user.name = owntracks
+de.cryxy.owntracks.recorder.influxdb.user.password = AnotherSuperbPassword456-
 
 # API
 de.cryxy.owntracks.recorder.api.user.name = 
@@ -81,7 +81,7 @@ ExecStart=/usr/bin/docker run --name=%n \
   -v /etc/localtime:/etc/localtime:ro \
   -v /etc/timezone:/etc/timezone:ro \
   -v /opt/owntracksrecorder/config:/start/config:ro \
-  -p 8090:8080 \
+  -p 8080:8080 \
   -e RECORDER_CONFIG=/start/config/config.properties \
   cryxy/my-owntracks-recorder:1.0.0-snapshot
 ExecStop=/usr/bin/docker stop -t 2 %n ; /usr/bin/docker rm -f %n
@@ -89,7 +89,6 @@ ExecStop=/usr/bin/docker stop -t 2 %n ; /usr/bin/docker rm -f %n
 [Install]
 WantedBy=multi-user.target
 ```
-
 
 Then run `sudo systemctl enable owntracksrecorder.service`.
 
@@ -113,4 +112,4 @@ Authorization: Basic xyz=
 {"startDate": "2018-11-10T00:00:00", "endDate":"2018-11-24T00:00:00","userName":"cryxy"}
 ```
 
-More query options are available. See de.cryxy.owntracks.recorder.influxdb.LocationQuery.
+More query options are available. See `de.cryxy.owntracks.recorder.influxdb.LocationQuery`.
