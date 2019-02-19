@@ -63,9 +63,16 @@ public class OwntracksMqttClient {
 
 			@Override
 			public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
+				byte[] payload = mqttMessage.getPayload();
 				if (LOG.isLoggable(Level.FINE))
-					LOG.log(Level.FINE, topic + "-" + new String(mqttMessage.getPayload()));
-				LocationDto locationDto = OwntrackJsonParser.createFrom(topic, mqttMessage.getPayload());
+					LOG.log(Level.FINE, topic + "-" + new String(payload));
+				LocationDto locationDto;
+				try {
+					locationDto = OwntrackJsonParser.createFrom(topic, payload);
+				} catch (Exception e) {
+					LOG.log(Level.WARNING, "Error parsing mqtt payload: " + payload, e);
+					return;
+				}
 				if (locationDto != null) {
 					LOG.fine("Fire event with locationDto=" + locationDto);
 					event.fireAsync(locationDto);
