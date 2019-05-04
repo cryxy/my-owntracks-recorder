@@ -35,6 +35,18 @@ public class LocationDto {
 	 */
 	private Integer accuracy;
 
+	/**
+	 * Altitude measured above sea level (iOS,Android/integer/meters/optional)
+	 */
+	private Integer alt;
+
+	/**
+	 * velocity (iOS,Android/integer/kmh/optional)
+	 */
+	private Integer vel;
+
+	private Integer heartRate;
+
 	private ReportTrigger trigger;
 	private InternetConnectivity connectivity;
 
@@ -156,12 +168,37 @@ public class LocationDto {
 		this.country = country;
 	}
 
+	public Integer getAlt() {
+		return alt;
+	}
+
+	public void setAlt(Integer alt) {
+		this.alt = alt;
+	}
+
+	public Integer getVel() {
+		return vel;
+	}
+
+	public void setVel(Integer vel) {
+		this.vel = vel;
+	}
+
+	public Integer getHeartRate() {
+		return heartRate;
+	}
+
+	public void setHeartRate(Integer heartRate) {
+		this.heartRate = heartRate;
+	}
+
 	@Override
 	public String toString() {
 		return "LocationDto [timestamp=" + timestamp + ", userName=" + userName + ", deviceName=" + deviceName
 				+ ", tid=" + tid + ", lat=" + lat + ", lon=" + lon + ", battLevel=" + battLevel + ", accuracy="
-				+ accuracy + ", trigger=" + trigger + ", connectivity=" + connectivity + ", geoHash=" + geoHash
-				+ ", placename=" + placename + ", country=" + country + "]";
+				+ accuracy + ", alt=" + alt + ", vel=" + vel + ", heartRate=" + heartRate + ", trigger=" + trigger
+				+ ", connectivity=" + connectivity + ", geoHash=" + geoHash + ", placename=" + placename + ", country="
+				+ country + "]";
 	}
 
 	@Override
@@ -169,11 +206,13 @@ public class LocationDto {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((accuracy == null) ? 0 : accuracy.hashCode());
+		result = prime * result + ((alt == null) ? 0 : alt.hashCode());
 		result = prime * result + ((battLevel == null) ? 0 : battLevel.hashCode());
 		result = prime * result + ((connectivity == null) ? 0 : connectivity.hashCode());
 		result = prime * result + ((country == null) ? 0 : country.hashCode());
 		result = prime * result + ((deviceName == null) ? 0 : deviceName.hashCode());
 		result = prime * result + ((geoHash == null) ? 0 : geoHash.hashCode());
+		result = prime * result + ((heartRate == null) ? 0 : heartRate.hashCode());
 		result = prime * result + ((lat == null) ? 0 : lat.hashCode());
 		result = prime * result + ((lon == null) ? 0 : lon.hashCode());
 		result = prime * result + ((placename == null) ? 0 : placename.hashCode());
@@ -181,6 +220,7 @@ public class LocationDto {
 		result = prime * result + ((timestamp == null) ? 0 : timestamp.hashCode());
 		result = prime * result + ((trigger == null) ? 0 : trigger.hashCode());
 		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
+		result = prime * result + ((vel == null) ? 0 : vel.hashCode());
 		return result;
 	}
 
@@ -197,6 +237,11 @@ public class LocationDto {
 			if (other.accuracy != null)
 				return false;
 		} else if (!accuracy.equals(other.accuracy))
+			return false;
+		if (alt == null) {
+			if (other.alt != null)
+				return false;
+		} else if (!alt.equals(other.alt))
 			return false;
 		if (battLevel == null) {
 			if (other.battLevel != null)
@@ -219,6 +264,11 @@ public class LocationDto {
 			if (other.geoHash != null)
 				return false;
 		} else if (!geoHash.equals(other.geoHash))
+			return false;
+		if (heartRate == null) {
+			if (other.heartRate != null)
+				return false;
+		} else if (!heartRate.equals(other.heartRate))
 			return false;
 		if (lat == null) {
 			if (other.lat != null)
@@ -251,6 +301,11 @@ public class LocationDto {
 			if (other.userName != null)
 				return false;
 		} else if (!userName.equals(other.userName))
+			return false;
+		if (vel == null) {
+			if (other.vel != null)
+				return false;
+		} else if (!vel.equals(other.vel))
 			return false;
 		return true;
 	}

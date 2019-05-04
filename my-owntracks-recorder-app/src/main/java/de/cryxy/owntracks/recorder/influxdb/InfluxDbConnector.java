@@ -49,6 +49,12 @@ public class InfluxDbConnector {
 
 	protected static final String FIELD_LAT = "lat";
 
+	protected static final String FIELD_ALT = "alt";
+
+	protected static final String FIELD_VEL = "vel";
+
+	protected static final String FIELD_HEART_RATE = "hr";
+
 	protected static final String NAME_MEASUREMENT = "locations";
 
 	protected static final String TAG_TID = "tid";
@@ -146,6 +152,15 @@ public class InfluxDbConnector {
 		}
 		if (dto.getConnectivity() != null) {
 			pointBuilder.addField(FIELD_CONNECTIVITY, dto.getConnectivity().name());
+		}
+		if (dto.getAlt() != null) {
+			pointBuilder.addField(FIELD_ALT, dto.getAlt());
+		}
+		if (dto.getVel() != null) {
+			pointBuilder.addField(FIELD_VEL, dto.getVel());
+		}
+		if (dto.getVel() != null) {
+			pointBuilder.addField(FIELD_HEART_RATE, dto.getHeartRate());
 		}
 		if (dto.getPlacename() != null) {
 			pointBuilder.tag(TAG_PLACENAME, dto.getPlacename());

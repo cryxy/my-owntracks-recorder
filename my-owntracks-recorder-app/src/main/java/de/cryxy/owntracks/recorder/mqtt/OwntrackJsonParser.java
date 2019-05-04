@@ -52,7 +52,7 @@ public class OwntrackJsonParser {
 			if (lonNumber == null)
 				return null;
 			dto.setLon(lonNumber.doubleValue());
-			
+
 			// battery
 			JsonNumber battNumber = locationObject.getJsonNumber("batt");
 			if (battNumber != null)
@@ -62,6 +62,21 @@ public class OwntrackJsonParser {
 			JsonNumber accNumber = locationObject.getJsonNumber("acc");
 			if (accNumber != null)
 				dto.setAccuracy(accNumber.intValue());
+
+			// alt
+			JsonNumber altNumber = locationObject.getJsonNumber("alt");
+			if (altNumber != null)
+				dto.setAlt(altNumber.intValue());
+
+			// vel
+			JsonNumber velNumber = locationObject.getJsonNumber("vel");
+			if (velNumber != null)
+				dto.setVel(velNumber.intValue());
+
+			// heart rate
+			JsonNumber heartRateNumber = locationObject.getJsonNumber("hr");
+			if (heartRateNumber != null)
+				dto.setVel(heartRateNumber.intValue());
 
 			// tid
 			JsonString tidString = locationObject.getJsonString("tid");

@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>de.cryxy.owntracks</groupId>
 		<artifactId>my-owntracks-recorder</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>1.1.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>my-owntracks-recorder-commons</artifactId>
 </project>
