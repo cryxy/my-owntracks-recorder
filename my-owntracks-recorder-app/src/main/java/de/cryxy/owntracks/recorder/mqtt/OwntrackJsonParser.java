@@ -74,9 +74,9 @@ public class OwntrackJsonParser {
 				dto.setVel(velNumber.intValue());
 
 			// heart rate
-			JsonNumber heartRateNumber = locationObject.getJsonNumber("hr");
+			JsonString heartRateNumber = locationObject.getJsonString("hr");
 			if (heartRateNumber != null)
-				dto.setVel(heartRateNumber.intValue());
+				dto.setVel(Integer.valueOf(heartRateNumber.getString()));
 
 			// tid
 			JsonString tidString = locationObject.getJsonString("tid");
