@@ -226,7 +226,7 @@ public class InfluxDbConnector {
 		}
 
 		if (locationQuery.getMinAccuracy() != null) {
-			queryCommandBuilder.append(String.format(" AND %s=$%s", FIELD_ACCURACY, BINDING_PARAM_ACCURACY));
+			queryCommandBuilder.append(String.format(" AND %s<=$%s", FIELD_ACCURACY, BINDING_PARAM_ACCURACY));
 			bindingParams.add(Arrays.asList(BINDING_PARAM_ACCURACY, locationQuery.getMinAccuracy()));
 		}
 
