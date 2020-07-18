@@ -70,7 +70,7 @@ public class OwntracksMqttClient {
 				try {
 					locationDto = OwntrackJsonParser.createFrom(topic, payload);
 				} catch (Exception e) {
-					LOG.log(Level.WARNING, "Error parsing mqtt payload: " + payload, e);
+					LOG.log(Level.WARNING, "Error parsing mqtt payload: " + new String(payload), e);
 					return;
 				}
 				if (locationDto != null) {
