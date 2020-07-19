@@ -159,7 +159,7 @@ public class InfluxDbConnector {
 		if (dto.getVel() != null) {
 			pointBuilder.addField(FIELD_VEL, dto.getVel());
 		}
-		if (dto.getVel() != null) {
+		if (dto.getHeartRate() != null) {
 			pointBuilder.addField(FIELD_HEART_RATE, dto.getHeartRate());
 		}
 		if (dto.getPlacename() != null) {
