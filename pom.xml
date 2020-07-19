@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.cryxy.owntracks</groupId>
 	<artifactId>my-owntracks-recorder</artifactId>
-	<version>1.1.0</version>
+	<version>1.1.1-SNAPSHOT</version>
 	<name>my-owntracks-recorder</name>
 	<packaging>pom</packaging>
 
