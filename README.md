@@ -114,3 +114,9 @@ Authorization: Basic xyz=
 ```
 
 More query options are available. See `de.cryxy.owntracks.recorder.influxdb.LocationQuery`.
+
+## Release 
+manual: 
+- ``mvn versions set`` to release version
+- create release on github
+- ``mvn versions set`` to new snapshot version
