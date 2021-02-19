@@ -10,6 +10,8 @@ Use [grafana-trackmap-panel](https://github.com/pR0Ps/grafana-trackmap-panel) to
 
 ![my-owntracks-recorder Grafana integration](docs/my-owntracks-recorder-grafana-integration.png)
 
+Query: `SELECT "lat", "lon" FROM "locations" WHERE ("userName" =~ /^$user$/ AND "deviceName" =~ /^$deviceName$/ AND "accuracy" =~ /^$accuracy$/) AND $timeFilter`
+
 ## System requirements
 - OwnTracks app (Android / iOS)
 - MQTT broker (Mosquitto, ...)
