@@ -1,0 +1,539 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 14,
+  "iteration": 1613767975611,
+  "links": [],
+  "panels": [
+    {
+      "autoZoom": true,
+      "datasource": "Owntracks",
+      "defaultLayer": "OpenStreetMap",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 11,
+      "lineColor": "red",
+      "links": [],
+      "maxDataPoints": 500,
+      "pointColor": "royalblue",
+      "scrollWheelZoom": false,
+      "showLayerChanger": true,
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "locations",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"lat\", \"lon\" FROM \"locations\" WHERE (\"userName\" =~ /^$user$/ AND \"deviceName\" =~ /^$deviceName$/ AND \"accuracy\" < $accuracy) AND $timeFilter",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "lat"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lon"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "userName",
+              "operator": "=~",
+              "value": "/^$user$/"
+            },
+            {
+              "condition": "AND",
+              "key": "deviceName",
+              "operator": "=~",
+              "value": "/^$deviceName$/"
+            },
+            {
+              "condition": "AND",
+              "key": "accuracy",
+              "operator": "=~",
+              "value": "/^$accuracy$/"
+            }
+          ]
+        }
+      ],
+      "title": "Karte",
+      "type": "pr0ps-trackmap-panel"
+    },
+    {
+      "columns": [],
+      "datasource": "Owntracks",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 11
+      },
+      "id": 1,
+      "interval": "",
+      "links": [],
+      "pageSize": 8,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 0,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "link": false,
+          "linkUrl": "",
+          "pattern": "Time",
+          "type": "date"
+        },
+        {
+          "alias": "Genauigkeit",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "pattern": "accuracy",
+          "thresholds": [],
+          "type": "number",
+          "unit": "lengthm"
+        },
+        {
+          "alias": "Akku",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "link": false,
+          "pattern": "battLevel",
+          "thresholds": [],
+          "type": "number",
+          "unit": "percent"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "Position",
+          "linkUrl": "https://www.google.de/maps/?q=$__cell_1,$__cell_2",
+          "pattern": "lat",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "Ort",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "Position in Maps öffnen",
+          "linkUrl": "https://www.google.de/maps/?q=$__cell_1,$__cell_2",
+          "pattern": "placename",
+          "preserveFormat": false,
+          "sanitize": false,
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "alias": "Gerät",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "pattern": "deviceName",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "pattern": "lon",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "Höhe",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "mappingType": 1,
+          "pattern": "alt",
+          "thresholds": [],
+          "type": "number",
+          "unit": "lengthm"
+        },
+        {
+          "alias": "Geschwindigkeit",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "vel",
+          "thresholds": [],
+          "type": "number",
+          "unit": "velocitykmh"
+        },
+        {
+          "alias": "Puls",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "mappingType": 1,
+          "pattern": "hr",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "dsType": "influxdb",
+          "groupBy": [],
+          "hide": false,
+          "measurement": "locations",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"lat\", \"lon\", \"placename\", \"deviceName\", \"accuracy\", \"battLevel\" ,\"alt\", \"vel\", \"hr\" FROM \"locations\" WHERE \"userName\" =~ /^$user$/ AND \"deviceName\" =~ /^$deviceName$/ AND \"accuracy\" < $accuracy AND $timeFilter",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "lat"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lon"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "placename"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "deviceName"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "accuracy"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "battLevel"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "userName",
+              "operator": "=~",
+              "value": "/^$user$/"
+            },
+            {
+              "condition": "AND",
+              "key": "deviceName",
+              "operator": "=~",
+              "value": "/^$deviceName$/"
+            },
+            {
+              "condition": "AND",
+              "key": "accuracy",
+              "operator": "=~",
+              "value": "/^$accuracy$/"
+            }
+          ]
+        }
+      ],
+      "title": "Locations",
+      "transform": "table",
+      "type": "table-old"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 26,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "fabian",
+          "value": "fabian"
+        },
+        "datasource": "Owntracks",
+        "definition": "",
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Benutzer",
+        "multi": false,
+        "name": "user",
+        "options": [],
+        "query": "SHOW TAG VALUES WITH KEY = \"userName\"",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": "Owntracks",
+        "definition": "",
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": "Gerät",
+        "multi": false,
+        "name": "deviceName",
+        "options": [],
+        "query": "SHOW TAG VALUES WITH KEY = \"deviceName\" WHERE userName =~ /$user/",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "tags": [],
+          "text": "250",
+          "value": "250"
+        },
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Genauigkeit",
+        "multi": false,
+        "name": "accuracy",
+        "options": [
+          {
+            "selected": false,
+            "text": "100",
+            "value": "100"
+          },
+          {
+            "selected": true,
+            "text": "250",
+            "value": "250"
+          },
+          {
+            "selected": false,
+            "text": "500",
+            "value": "500"
+          },
+          {
+            "selected": false,
+            "text": "750",
+            "value": "750"
+          },
+          {
+            "selected": false,
+            "text": "1000",
+            "value": "1000"
+          },
+          {
+            "selected": false,
+            "text": "2000",
+            "value": "2000"
+          }
+        ],
+        "query": "100,250,500,750,1000,2000",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now/d",
+    "to": "now/d"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "",
+  "title": "Owntracks [Export]",
+  "uid": "9Qs-URyGz",
+  "version": 2
+}
