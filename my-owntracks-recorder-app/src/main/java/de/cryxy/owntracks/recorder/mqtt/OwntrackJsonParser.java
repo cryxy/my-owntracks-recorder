@@ -7,11 +7,11 @@ import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.json.Json;
-import javax.json.JsonNumber;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import javax.json.JsonString;
+import jakarta.json.Json;
+import jakarta.json.JsonNumber;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonReader;
+import jakarta.json.JsonString;
 
 import de.cryxy.owntracks.commons.dtos.LocationDto;
 import de.cryxy.owntracks.commons.enums.InternetConnectivity;
@@ -96,7 +96,6 @@ public class OwntrackJsonParser {
 		try {
 			inputStream.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

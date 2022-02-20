@@ -5,7 +5,7 @@ package de.cryxy.owntracks.recorder.api.resources;
 
 import java.time.LocalDateTime;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * @author fabian

@@ -11,11 +11,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDB.LogLevel;
 import org.influxdb.InfluxDBFactory;
@@ -31,6 +26,10 @@ import org.influxdb.impl.TimeUtil;
 import de.cryxy.owntracks.commons.dtos.LocationDto;
 import de.cryxy.owntracks.commons.enums.InternetConnectivity;
 import de.cryxy.owntracks.recorder.config.Config;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import okhttp3.OkHttpClient;
 
 @Singleton

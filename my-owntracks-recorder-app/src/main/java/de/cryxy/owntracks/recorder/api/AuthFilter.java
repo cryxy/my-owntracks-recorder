@@ -4,21 +4,18 @@
 package de.cryxy.owntracks.recorder.api;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import javax.inject.Inject;
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerRequestFilter;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.ext.Provider;
-
-import org.glassfish.jersey.internal.util.Base64;
 
 import de.cryxy.owntracks.recorder.config.Config;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.container.ContainerRequestContext;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 
 /**
  * Authorization Request Filter.
@@ -26,8 +23,8 @@ import de.cryxy.owntracks.recorder.config.Config;
  * @author fabian
  *
  */
-@Provider
-public class AuthFilter implements ContainerRequestFilter {
+@jakarta.ws.rs.ext.Provider
+public class AuthFilter implements jakarta.ws.rs.container.ContainerRequestFilter {
 
 	@Inject
 	private Config config;
@@ -67,7 +64,8 @@ public class AuthFilter implements ContainerRequestFilter {
 		final String encodedUserPassword = authorization.get(0).replaceFirst(AUTHENTICATION_SCHEME + " ", "");
 
 		// Decode username and password
-		String usernameAndPassword = new String(Base64.decode(encodedUserPassword.getBytes()));
+		Base64.Decoder base64Decoder = Base64.getDecoder();
+		String usernameAndPassword = new String(base64Decoder.decode(encodedUserPassword.getBytes()));
 
 		// Split username and password tokens
 		final StringTokenizer tokenizer = new StringTokenizer(usernameAndPassword, ":");

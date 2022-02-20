@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk8:debianslim-jre
+FROM adoptopenjdk/openjdk11:debianslim-jre
 ADD /target/my-owntracks-recorder-app.jar /start/my-owntracks-recorder-app.jar
 ADD /target/libs /start/libs
 #RUN groupadd -r owntracks -g 998

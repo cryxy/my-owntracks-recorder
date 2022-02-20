@@ -6,14 +6,13 @@ import java.io.IOException;
 import java.util.logging.Logger;
 import java.util.zip.ZipInputStream;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import de.cryxy.owntracks.commons.dtos.LocationDto;
 import de.cryxy.owntracks.recorder.config.Config;
 import geocode.GeoName;
 import geocode.ReverseGeoCode;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
 @Singleton
 public class ReverseGeoCoder {

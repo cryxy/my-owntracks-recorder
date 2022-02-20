@@ -2,9 +2,8 @@ package de.cryxy.owntracks.recorder.influxdb;
 
 import java.util.logging.Logger;
 
-import javax.enterprise.event.ObservesAsync;
-
 import de.cryxy.owntracks.commons.dtos.LocationDto;
+import jakarta.enterprise.event.ObservesAsync;
 
 public class InfluxDbLocationDtoObserver {
 

@@ -5,16 +5,15 @@ import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.ManagedBean;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
-
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import de.cryxy.owntracks.recorder.api.resources.LocationDtoResource;
+import jakarta.annotation.ManagedBean;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.UriInfo;
 
 public class Application {
 
@@ -22,22 +21,7 @@ public class Application {
 
 	public static void main(String[] args) throws MqttException, IOException {
 
-//		SeContainerInitializer initializer = SeContainerInitializer.newInstance();
-//
-//		SeContainer container = initializer.initialize();
 		{
-
-//			final OwntracksMqttClient client = container.select(OwntracksMqttClient.class).get();
-//			// client.connect();
-//
-//			final InfluxDbConnector influxDbConnector = container.select(InfluxDbConnector.class).get();
-//			LocationQuery query = new LocationQuery();
-//			query.setStartDate(LocalDateTime.now().minusHours(96));
-//			query.setEndDate(LocalDateTime.now().minusHours(24));
-//			// query.setDeviceName("g5");
-//
-//			List<LocationDto> locations = influxDbConnector.readLocations(query);
-//			System.out.println(locations);
 
 			final ResourceConfig resourceConfig = createJaxRsApp();
 
@@ -50,10 +34,6 @@ public class Application {
 				public void run() {
 					System.out.println("Shutdown");
 					server.shutdownNow();
-//					client.disconnect();
-//					influxDbConnector.cleanUp();
-//					Event<Object> event = container.getBeanManager().getEvent();
-//					event.fire(new ShutdownEvent());
 
 				}
 			});
@@ -66,7 +46,7 @@ public class Application {
 	 * JAX-RS application defined as a CDI bean.
 	 */
 	@ManagedBean
-	public static class JaxRsApplication extends javax.ws.rs.core.Application {
+	public static class JaxRsApplication extends jakarta.ws.rs.core.Application {
 
 		@Context
 		UriInfo uInfo;

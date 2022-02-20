@@ -42,7 +42,7 @@ InfluxDB shell version: 0.13
 ```
 # MQTT-Server
 # Allowed URIs: https://www.eclipse.org/paho/files/javadoc/org/eclipse/paho/client/mqttv3/MqttClient.html#MqttClient-java.lang.String-java.lang.String-
-de.cryxy.owntracks.recorder.mqtt.server.uri = ssl://domain.de
+de.cryxy.owntracks.recorder.mqtt.server.uri = ssl://domain.de:8883
 de.cryxy.owntracks.recorder.mqtt.server.user.name = 
 de.cryxy.owntracks.recorder.mqtt.server.user.password = 
 de.cryxy.owntracks.recorder.mqtt.server.topic = owntracks/#

@@ -2,9 +2,8 @@ package de.cryxy.owntracks.recorder.influxdb;
 
 import java.time.LocalDateTime;
 
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import de.cryxy.owntracks.recorder.api.resources.LocalDateTimeAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * Query a location measurement.

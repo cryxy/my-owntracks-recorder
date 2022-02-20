@@ -1,5 +1,5 @@
 # MQTT-Server
-de.cryxy.owntracks.recorder.mqtt.server.uri = ssl://domain.de
+de.cryxy.owntracks.recorder.mqtt.server.uri = ssl://domain.de:8883
 de.cryxy.owntracks.recorder.mqtt.server.user.name = 
 de.cryxy.owntracks.recorder.mqtt.server.user.password = 
 de.cryxy.owntracks.recorder.mqtt.server.topic = 

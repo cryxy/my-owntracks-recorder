@@ -2,12 +2,11 @@ package de.cryxy.owntracks.recorder.processing;
 
 import java.util.logging.Logger;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import ch.hsr.geohash.GeoHash;
 import de.cryxy.owntracks.commons.dtos.LocationDto;
 import de.cryxy.owntracks.recorder.config.Config;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
 @Singleton
 public class GeoHasher {

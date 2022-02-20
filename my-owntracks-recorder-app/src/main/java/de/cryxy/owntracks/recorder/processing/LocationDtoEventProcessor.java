@@ -2,11 +2,10 @@ package de.cryxy.owntracks.recorder.processing;
 
 import java.util.logging.Logger;
 
-import javax.enterprise.event.ObservesAsync;
-import javax.inject.Inject;
-
 import de.cryxy.owntracks.commons.dtos.LocationDto;
 import de.cryxy.owntracks.recorder.influxdb.InfluxDbConnector;
+import jakarta.enterprise.event.ObservesAsync;
+import jakarta.inject.Inject;
 
 public class LocationDtoEventProcessor {
 	

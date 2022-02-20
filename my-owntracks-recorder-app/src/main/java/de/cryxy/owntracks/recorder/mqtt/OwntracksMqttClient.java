@@ -1,24 +1,22 @@
 package de.cryxy.owntracks.recorder.mqtt;
 
+import java.net.URI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.annotation.PreDestroy;
-import javax.enterprise.event.Event;
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.spi.BeforeShutdown;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
-import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
-import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.jboss.weld.environment.se.events.ContainerInitialized;
 
+import com.hivemq.client.mqtt.MqttClient;
+import com.hivemq.client.mqtt.mqtt3.Mqtt3AsyncClient;
+import com.hivemq.client.mqtt.mqtt3.Mqtt3ClientBuilder;
+
 import de.cryxy.owntracks.commons.dtos.LocationDto;
+import jakarta.annotation.PreDestroy;
+import jakarta.enterprise.event.Event;
+import jakarta.enterprise.event.Observes;
+import jakarta.enterprise.inject.spi.BeforeShutdown;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
 @Singleton
 public class OwntracksMqttClient {
@@ -33,82 +31,83 @@ public class OwntracksMqttClient {
 
 	private final String clientId = "cryxy-owntrack-recorder";
 
-	private MqttConnectOptions connOptions;
-
-	private MqttClient client;
+	private Mqtt3AsyncClient client;
 
 	public OwntracksMqttClient() {
 		LOG.info("Creating client ...");
 	}
 
-	public void connect() throws MqttException {
+	public void connect() {
 		connect(config.getMqttServerUri(), config.getMqttUsername(), config.getMqttPassword(), config.getMqttTopic());
 	}
 
-	public void connect(String serverURI, String userName, String password, String topicFilter) throws MqttException {
+	public void connect(String serverURI, String userName, String password, String topicFilter) {
 
-		client = new MqttClient(serverURI, clientId);
+		URI uri = URI.create(serverURI);
 
-		client.setCallback(new MqttCallbackExtended() {
+		Mqtt3ClientBuilder builder = MqttClient.builder().useMqttVersion3().identifier(clientId)
+				.serverHost(uri.getHost()).serverPort(uri.getPort()).automaticReconnectWithDefaultConfig();
 
-			@Override
-			public void connectionLost(Throwable throwable) {
-				LOG.log(Level.WARNING, "Connection lost! Try automatic reconnect ...", throwable);
+		switch (uri.getScheme()) {
+		case "ssl":
+			builder.sslWithDefaultConfig();
+			break;
+		case "ws":
+			builder.webSocketWithDefaultConfig();
+			break;
+		case "wss":
+			builder.sslWithDefaultConfig().webSocketWithDefaultConfig();
+		default:
+			break;
+		}
+
+		client = builder.buildAsync();
+
+		LOG.info("Connecting to " + uri.toString());
+
+		/*
+		 * TODO: Log disconnect
+		 */
+		client.connectWith().simpleAuth().username(userName).password(password.getBytes()).applySimpleAuth().send()
+				.whenComplete((connAck, throwable) -> {
+					if (throwable != null) {
+						LOG.log(Level.WARNING, "Connecting failed!", throwable);
+					} else {
+						LOG.info("Successful connected to " + uri.toString());
+					}
+				});
+
+		client.subscribeWith().topicFilter(topicFilter).callback(publish -> {
+			String topic = publish.getTopic().toString();
+			byte[] payload = publish.getPayloadAsBytes();
+			if (LOG.isLoggable(Level.FINE))
+				LOG.log(Level.FINE, topic + "-" + new String(payload));
+			LocationDto locationDto;
+			try {
+				locationDto = OwntrackJsonParser.createFrom(topic, payload);
+			} catch (Exception e) {
+				LOG.log(Level.WARNING, "Error parsing mqtt payload: " + new String(payload), e);
+				return;
 			}
-
-			@Override
-			public void deliveryComplete(IMqttDeliveryToken arg0) {
-
+			if (locationDto != null) {
+				LOG.fine("Fire event with locationDto=" + locationDto);
+				event.fireAsync(locationDto);
 			}
-
-			@Override
-			public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
-				byte[] payload = mqttMessage.getPayload();
-				if (LOG.isLoggable(Level.FINE))
-					LOG.log(Level.FINE, topic + "-" + new String(payload));
-				LocationDto locationDto;
-				try {
-					locationDto = OwntrackJsonParser.createFrom(topic, payload);
-				} catch (Exception e) {
-					LOG.log(Level.WARNING, "Error parsing mqtt payload: " + new String(payload), e);
-					return;
-				}
-				if (locationDto != null) {
-					LOG.fine("Fire event with locationDto=" + locationDto);
-					event.fireAsync(locationDto);
-				}
-
+		}).send().whenComplete((subAck, throwable) -> {
+			if (throwable != null) {
+				LOG.log(Level.WARNING, "Subscribing failed!", throwable);
+			} else {
+				LOG.info("Subscribed to ... " + topicFilter);
 			}
-
-			@Override
-			public void connectComplete(boolean reconnect, String serverURI) {
-				LOG.info("Connected to mqtt server ... " + serverURI);
-
-				try {
-					LOG.info("Subscribe to ... " + topicFilter);
-					client.subscribe(topicFilter);
-				} catch (MqttException e) {
-					LOG.log(Level.WARNING, "Subscribing failed!", e);
-				}
-
-			}
-
 		});
 
-		connOptions = new MqttConnectOptions();
-		connOptions.setUserName(userName);
-		connOptions.setPassword(password.toCharArray());
-		connOptions.setAutomaticReconnect(true);
-
-		LOG.info("Connect to mqtt server ... " + client.getServerURI());
-		client.connect(connOptions);
 	}
 
 	public void onContainerInitializedEvent(@Observes ContainerInitialized event) {
 		try {
 			connect();
-		} catch (MqttException e) {
-			LOG.log(Level.WARNING, "Error connection to MQTT Broker.");
+		} catch (Exception e) {
+			LOG.log(Level.WARNING, "Error connection to MQTT Broker.", e);
 		}
 	}
 
